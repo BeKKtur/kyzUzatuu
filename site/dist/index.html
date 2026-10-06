@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ky">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#380f1c">
+  <meta name="description" content="Кыз Узатуу — өзгөчө күнгө арналган чакыруу">
+  <title>Кыз Узатуу — Айпери</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23380f1c'/%3E%3Cpath d='M16 5L20 12L27 16L20 20L16 27L12 20L5 16L12 12Z' fill='none' stroke='%23c7a975'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/envelope.css">
+  <link rel="stylesheet" href="styles/sections.css">
+  <script src="config.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body class="intro-active">
+  <svg class="svg-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="ornament" viewBox="0 0 80 80"><path d="M40 5 50 23 68 30 58 40 68 50 50 57 40 75 30 57 12 50 22 40 12 30 30 23Z M40 18 48 32 62 40 48 48 40 62 32 48 18 40 32 32Z M40 28V52 M28 40H52" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="m34 34 12 12m0-12L34 46" fill="none" stroke="currentColor"/></symbol>
+      <symbol id="star" viewBox="0 0 24 24"><path d="M12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9Z" fill="none" stroke="currentColor" stroke-width="1"/></symbol>
+      <symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    </defs>
+  </svg>
+
+  <div id="petals" class="petals" aria-hidden="true"></div>
+
+  <section id="intro" class="intro" aria-label="Чакыруу конверти">
+    <div class="intro-background" data-parallax="0.035"></div>
+    <div class="intro-vignette"></div>
+    <div class="intro-light" aria-hidden="true"></div>
+    <div class="intro-heading"><svg class="brand-mark"><use href="#ornament"/></svg><p class="eyebrow" data-text="introEyebrow"></p></div>
+    <div class="envelope-stage">
+      <div id="envelope" class="envelope" data-state="closed">
+        <div class="envelope-back"></div>
+        <!-- Постоянный порядок: клапан сзади → письмо → передние сгибы. -->
+        <div class="envelope-flap"><div class="flap-outside"></div><div class="flap-inside"></div></div>
+        <div class="letter-pocket">
+          <article class="letter">
+            <div class="letter-frame">
+              <svg class="letter-ornament"><use href="#ornament"/></svg>
+              <p class="letter-eyebrow" data-text="letterEyebrow"></p>
+              <h1 data-event="title"></h1>
+              <p class="letter-bride" data-event="bride"></p>
+              <div class="fine-rule"></div>
+              <p class="letter-subtitle" data-text="letterSubtitle"></p>
+              <p class="letter-date" data-event="dateShort"></p>
+              <svg class="letter-star"><use href="#star"/></svg>
+            </div>
+          </article>
+        </div>
+        <div class="envelope-side envelope-left"></div>
+        <div class="envelope-side envelope-right"></div>
+        <div class="envelope-front"><svg class="envelope-mark"><use href="#ornament"/></svg></div>
+        <button id="seal" class="wax-seal"><span class="seal-ring"><svg><use href="#ornament"/></svg></span></button>
+        <div class="envelope-glow" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="intro-actions"><p id="intro-status" aria-live="polite" data-text="introHint"></p><span class="tap-cue" aria-hidden="true"><span></span></span><button id="continue" class="button button-light" data-text="continue" hidden></button></div>
+    <div class="intro-date" data-event="dateShort"></div>
+  </section>
+
+  <main id="main" hidden>
+    <nav id="navigation" class="navigation"><a class="nav-brand" href="#home"><svg><use href="#ornament"/></svg><span data-event="bride"></span></a><div id="nav-links" class="nav-links"></div></nav>
+    <section id="home" class="hero">
+      <div class="hero-background" data-parallax="0.08"></div><div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow enter" data-text="heroEyebrow"></p>
+        <h1 class="hero-title enter" data-event="title"></h1>
+        <div class="hero-name enter"><span class="name-line"></span><span data-event="bride"></span><span class="name-line"></span></div>
+        <div class="hero-date enter"><span data-event="dateShort"></span><svg><use href="#star"/></svg><span data-event="time"></span></div>
+      </div>
+      <a class="hero-scroll" href="#invitation"><span data-text="scroll"></span><span class="scroll-line"></span></a>
+      <span class="hero-corner" aria-hidden="true">✧</span>
+    </section>
+
+    <section id="invitation" class="invitation-section">
+      <div class="invitation-inner">
+        <svg class="section-ornament reveal"><use href="#ornament"/></svg>
+        <p class="eyebrow reveal" data-text="letterEyebrow"></p>
+        <h2 class="invitation-title reveal" data-text="greeting"></h2>
+        <p class="invitation-copy reveal" data-text="invitation"></p>
+        <p class="invitation-closing reveal" data-text="invitationClosing"></p>
+        <div class="divider reveal"><span></span><svg><use href="#star"/></svg><span></span></div>
+      </div>
+      <div class="silk-light" aria-hidden="true"></div>
+    </section>
+
+    <section id="date" class="date-section">
+      <div class="date-portrait"><img id="mountain-photo" data-parallax="0.04" alt="" loading="lazy"><div class="portrait-shade"></div><blockquote class="reveal" data-text="quote"></blockquote></div>
+      <div class="date-content">
+        <p class="eyebrow reveal" data-text="dateEyebrow"></p>
+        <h2 class="section-title reveal" data-text="dateTitle"></h2>
+        <div class="date-display reveal"><span class="date-day" id="date-day"></span><div><p id="date-month"></p><span data-event="day"></span></div><svg><use href="#ornament"/></svg></div>
+        <p class="event-time reveal"><span data-event="time"></span><span class="time-line"></span><span id="date-year"></span></p>
+        <p class="body-copy reveal" data-text="dateNote"></p>
+        <div class="countdown-wrap reveal"><p class="eyebrow" data-text="countdownEyebrow"></p><div id="countdown" class="countdown"></div><p id="countdown-status" class="countdown-status" aria-live="polite"></p></div>
+      </div>
+    </section>
+
+    <section id="program" class="program-section">
+      <div class="program-ambient" aria-hidden="true"></div>
+      <div class="program-heading"><p class="eyebrow reveal" data-text="programEyebrow"></p><h2 class="section-title reveal" data-text="programTitle"></h2><p class="body-copy reveal" data-text="programNote"></p></div>
+      <div id="timeline" class="timeline"></div>
+      <svg class="program-ornament" aria-hidden="true"><use href="#ornament"/></svg>
+    </section>
+
+    <section id="venue" class="venue-section">
+      <div class="venue-heading"><p class="eyebrow reveal" data-text="venueEyebrow"></p><h2 class="section-title reveal" data-text="venueTitle"></h2></div>
+      <div class="venue-photo reveal"><img id="hall-photo" alt="" loading="lazy"><div class="venue-photo-shade"></div><span class="photo-caption" id="photo-caption"></span></div>
+      <div class="venue-details"><svg class="section-ornament reveal"><use href="#ornament"/></svg><h3 id="venue-name" class="reveal"></h3><p id="venue-address" class="venue-address reveal"></p><p class="body-copy reveal" data-text="venueNote"></p><a id="map-link" class="button button-dark reveal" target="_blank" rel="noopener noreferrer"><svg><use href="#pin"/></svg><span data-text="mapButton"></span></a></div>
+    </section>
+
+    <section class="closing-section">
+      <div class="closing-background" data-parallax="0.06"></div><div class="closing-shade"></div>
+      <div class="closing-content"><p class="eyebrow reveal" data-text="closingEyebrow"></p><h2 class="closing-title reveal" data-text="closing"></h2><svg class="section-ornament reveal"><use href="#ornament"/></svg><p class="closing-note reveal" data-text="closingNote"></p><p class="closing-date reveal" data-event="dateText"></p></div>
+      <footer><span data-text="footer"></span><svg><use href="#star"/></svg><span data-event="dateShort"></span></footer>
+    </section>
+  </main>
+</body>
+</html>

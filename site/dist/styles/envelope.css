@@ -1,0 +1,673 @@
+/* Слои не меняются при подъёме письма: задняя стенка 1, письмо 3,
+   боковые сгибы 5, передняя стенка 6. Только клапан уходит с 8 на 2. */
+.intro {
+  position:fixed;
+  inset:0;
+  z-index:50;
+  min-height:580px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ecd9b7;
+  isolation:isolate;
+  overflow:hidden;
+  background:var(--wine);
+  transition:opacity 1.2s ease,filter 1.2s ease
+}
+
+.intro-background {
+  position:absolute;
+  inset:-5%;
+  z-index:-3;
+  background:var(--intro-image) center/cover no-repeat
+}
+
+.intro-vignette {
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:linear-gradient(180deg,#1b080d38,#28081325 35%,#1e07156b 85%),radial-gradient(ellipse at 50% 40%,transparent 5%,#19030ba6 100%)
+}
+
+.intro-light {
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:.23;
+  background:radial-gradient(ellipse at 75% 28%,#e6af7455,transparent 42%);
+  animation:light-breathe 7s ease-in-out infinite alternate
+}
+
+.intro-heading {
+  position:absolute;
+  top:max(30px,6svh);
+  left:20px;
+  right:20px;
+  text-align:center
+}
+
+.brand-mark {
+  width:37px;
+  height:37px;
+  color:var(--gold);
+  margin:0 auto 15px
+}
+
+.intro-heading .eyebrow {
+  font-size:9px;
+  letter-spacing:.22em
+}
+
+.envelope-stage {
+  position:relative;
+  width:min(82vw,410px);
+  height:min(520px,69svh);
+  margin-top:5svh;
+  perspective:1500px;
+  pointer-events:none
+}
+
+.envelope {
+  --letter-height:clamp(300px,83vw,365px);
+  position:absolute;
+  bottom:8%;
+  width:100%;
+  aspect-ratio:1.48;
+  isolation:isolate;
+  filter:drop-shadow(0 22px 30px #10010799);
+  pointer-events:auto;
+  transform:rotate(-3deg);
+  transition:transform 1.8s var(--ease)
+}
+
+.envelope-back {
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(155deg,#cdb58f,#e6d6b8 55%,#ae8d61);
+  border:1px solid #e4d3b1;
+  border-radius:3px;
+  box-shadow:inset 0 6px 12px #79562f44
+}
+
+.envelope-flap {
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:59%;
+  transform-origin:50% 0;
+  transform:rotateX(0deg);
+  transform-style:preserve-3d;
+  transition:transform 1.25s cubic-bezier(.45,.05,.28,1);
+  z-index:8;
+  will-change:transform;
+  pointer-events:none
+}
+
+.flap-outside,.flap-inside {
+  position:absolute;
+  inset:0;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  backface-visibility:hidden
+}
+
+.flap-outside {
+  background:linear-gradient(135deg,#f2e8d3,#e5d6b8 55%,#d7c09b);
+  filter:drop-shadow(0 4px 4px #5c3c2555)
+}
+
+.flap-outside::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(31deg,transparent 48.8%,#aa86475c 49%,transparent 49.4%),linear-gradient(-31deg,transparent 48.8%,#aa86475c 49%,transparent 49.4%);
+  opacity:.7
+}
+
+.flap-inside {
+  clip-path:polygon(0 100%,100% 100%,50% 0);
+  transform:rotateX(180deg);
+  background:linear-gradient(180deg,#dec9a4,#efdfc5 85%);
+  box-shadow:inset 0 1px #b48f54
+}
+
+.letter-pocket {
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:12px;
+  height:calc(var(--letter-height) + 100% + 80px);
+  overflow:hidden;
+  z-index:3;
+  pointer-events:none
+}
+
+.letter {
+  position:absolute;
+  bottom:0;
+  left:8%;
+  width:84%;
+  height:var(--letter-height);
+  padding:10px;
+  background:radial-gradient(ellipse at 12% 4%,#fff9ec,#f2e5cd 70%,#dfc8a5);
+  color:#644529;
+  box-shadow:0 0 2px #aa8854,0 8px 22px #2a110a3b;
+  transform:translateY(48%);
+  transition:transform 2.3s cubic-bezier(.3,.05,.15,1);
+  will-change:transform
+}
+
+.letter-frame {
+  position:relative;
+  height:100%;
+  border:1px solid #b69a6b;
+  outline:1px solid #bda67977;
+  outline-offset:-5px;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  justify-content:center;
+  padding:15px 9px;
+  text-align:center
+}
+
+.letter-frame::before,.letter-frame::after {
+  content:'◇';
+  position:absolute;
+  font-size:12px;
+  color:#a88952;
+  background:#f4e6ce;
+  top:-9px;
+  left:calc(50% - 5px);
+  padding:0 4px
+}
+
+.letter-frame::after {
+  top:auto;
+  bottom:-9px
+}
+
+.letter-ornament {
+  width:38px;
+  height:38px;
+  color:#9c7a45;
+  margin-bottom:12px
+}
+
+.letter-eyebrow {
+  font-family:var(--sans);
+  font-size:8px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:12px
+}
+
+.letter h1 {
+  font-size:clamp(34px,9vw,45px);
+  font-style:italic;
+  line-height:1.02;
+  letter-spacing:-.025em;
+  max-width:100%
+}
+
+.letter-bride {
+  font-size:23px;
+  font-style:italic;
+  margin-top:8px
+}
+
+.fine-rule {
+  height:1px;
+  width:30px;
+  background:#aa8c5b;
+  margin:15px 0
+}
+
+.letter-subtitle {
+  font-family:var(--sans);
+  font-size:8px;
+  letter-spacing:.17em
+}
+
+.letter-date {
+  font-size:16px;
+  margin-top:9px
+}
+
+.letter-star {
+  width:14px;
+  height:14px;
+  color:#a88952;
+  margin-top:15px
+}
+
+.envelope-side {
+  position:absolute;
+  inset:0;
+  z-index:5;
+  pointer-events:none
+}
+
+.envelope-left {
+  clip-path:polygon(0 0,58% 59%,0 100%);
+  background:linear-gradient(125deg,#e8dabe,#d7bf9a);
+  filter:drop-shadow(1px 0 1px #856438)
+}
+
+.envelope-right {
+  clip-path:polygon(100% 0,42% 59%,100% 100%);
+  background:linear-gradient(-125deg,#e7d8ba,#d8c19d)
+}
+
+.envelope-front {
+  position:absolute;
+  inset:0;
+  z-index:6;
+  clip-path:polygon(0 100%,0 93%,50% 38%,100% 93%,100% 100%);
+  background:linear-gradient(130deg,#f0e4ce,#e4d3b4 60%,#d5bc96);
+  pointer-events:none
+}
+
+.envelope-front::after {
+  content:'';
+  position:absolute;
+  inset:9px;
+  border:1px solid #bfa17266;
+  clip-path:polygon(0 100%,0 92%,50% 36%,100% 92%,100% 100%)
+}
+
+.envelope-mark {
+  position:absolute;
+  bottom:6%;
+  left:calc(50% - 18px);
+  width:36px;
+  height:36px;
+  color:#b29054;
+  opacity:.8
+}
+
+.wax-seal {
+  position:absolute;
+  z-index:10;
+  top:54%;
+  left:50%;
+  width:73px;
+  height:73px;
+  transform:translate(-50%,-50%);
+  border:1px solid #a25746;
+  border-radius:45% 49% 45% 47%;
+  color:#c19b62;
+  background:radial-gradient(circle at 30% 25%,#9d3145,#661024 60%,#3d0914);
+  box-shadow:inset 0 0 0 3px #7b1a2b,inset 0 0 0 5px #b3594566,inset 0 -6px 11px #25061199,0 4px 5px #47200b66;
+  transition:transform .7s var(--ease),opacity .6s ease,filter .3s;
+  animation:seal-glint 5s ease-in-out infinite
+}
+
+.seal-ring {
+  position:absolute;
+  inset:9px;
+  border:1px solid #a8764a;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  box-shadow:inset 0 1px 2px #d59a5866
+}
+
+.seal-ring svg {
+  width:45px;
+  height:45px;
+  filter:drop-shadow(0 1px #35070a)
+}
+
+.wax-seal:hover {
+  filter:brightness(1.2);
+  transform:translate(-50%,-50%) scale(1.04)
+}
+
+.envelope-glow {
+  position:absolute;
+  inset:-12%;
+  z-index:11;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(ellipse at 50% 43%,#f1d09955,transparent 60%);
+  mix-blend-mode:screen
+}
+
+.envelope[data-state='unsealed'] .wax-seal,.envelope[data-state='open'] .wax-seal,.envelope[data-state='rising'] .wax-seal,.envelope[data-state='ready'] .wax-seal {
+  opacity:0;
+  transform:translate(-50%,-35%) rotate(16deg) scale(1.07);
+  pointer-events:none;
+  animation:none
+}
+
+.envelope[data-state='open'] .envelope-flap,.envelope[data-state='rising'] .envelope-flap,.envelope[data-state='ready'] .envelope-flap {
+  transform:rotateX(-180deg)
+}
+
+.envelope.flap-behind .envelope-flap {
+  z-index:2
+}
+
+.envelope[data-state='rising'],.envelope[data-state='ready'] {
+  transform:rotate(0)
+}
+
+.envelope[data-state='rising'] .letter {
+  transform:translateY(-43%)
+}
+
+.envelope[data-state='ready'] .letter {
+  transform:translateY(-65%);
+  transition-duration:1.4s
+}
+
+.envelope[data-state='unsealed'] .envelope-glow {
+  animation:opening-light 1.7s ease both
+}
+
+.intro-actions {
+  position:absolute;
+  bottom:max(60px,9svh);
+  text-align:center;
+  left:20px;
+  right:20px
+}
+
+.intro-actions>p {
+  font-family:var(--sans);
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#e6d7bf;
+  min-height:17px
+}
+
+.tap-cue {
+  display:block;
+  width:20px;
+  height:31px;
+  border:1px solid #ddc7a077;
+  border-radius:14px;
+  margin:16px auto 0
+}
+
+.tap-cue span {
+  display:block;
+  width:2px;
+  height:5px;
+  margin:7px auto;
+  background:var(--gold);
+  animation:tap-pulse 2.5s ease infinite
+}
+
+.intro-actions .button {
+  margin-top:18px;
+  font-size:10px;
+  min-height:48px;
+  padding:13px 25px;
+  animation:button-appear 1s var(--ease) both
+}
+
+.intro-date {
+  position:absolute;
+  bottom:24px;
+  left:0;
+  right:0;
+  text-align:center;
+  font-size:13px;
+  letter-spacing:.18em;
+  color:#c7b39388
+}
+
+.intro.leaving {
+  opacity:0;
+  filter:blur(7px);
+  pointer-events:none
+}
+
+.intro.ready .intro-heading {
+  opacity:0;
+  transition:opacity 1s
+}
+
+.intro.ready .intro-actions {
+  bottom:max(40px,6svh)
+}
+
+@keyframes seal-glint {
+  50% {
+    box-shadow:inset 0 0 0 3px #7b1a2b,inset 0 0 0 5px #b3594566,inset 0 -6px 11px #25061199,0 4px 5px #47200b66,0 0 24px #e1b37c20
+  }
+
+}
+
+@keyframes light-breathe {
+  to {
+    opacity:.6;
+    transform:translateX(-30px)
+  }
+
+}
+
+@keyframes opening-light {
+  30% {
+    opacity:1
+  }
+
+  100% {
+    opacity:0;
+    transform:scale(1.3)
+  }
+
+}
+
+@keyframes tap-pulse {
+  50% {
+    transform:translateY(6px);
+    opacity:.3
+  }
+
+}
+
+@keyframes button-appear {
+  from {
+    opacity:0;
+    transform:translateY(10px)
+  }
+
+  to {
+    opacity:1;
+    transform:none
+  }
+
+}
+
+@media(min-width:760px) {
+  .intro-heading {
+    top:7svh
+  }
+
+  .intro-heading .eyebrow {
+    font-size:11px
+  }
+
+  .envelope-stage {
+    height:min(630px,72svh);
+    width:410px;
+    margin-top:8svh
+  }
+
+  .envelope {
+    --letter-height:390px;
+    bottom:8%
+  }
+
+  .wax-seal {
+    width:88px;
+    height:88px
+  }
+
+  .seal-ring svg {
+    width:51px;
+    height:51px
+  }
+
+  .letter h1 {
+    font-size:46px
+  }
+
+  .letter-bride {
+    font-size:27px
+  }
+
+  .letter-ornament {
+    width:43px;
+    height:43px
+  }
+
+  .letter-eyebrow {
+    font-size:9px
+  }
+
+  .letter-subtitle {
+    font-size:9px
+  }
+
+  .intro-actions {
+    bottom:7svh
+  }
+
+  .intro-actions>p {
+    font-size:10px
+  }
+
+}
+
+@media(max-height:700px) and (max-width:759px) {
+  .intro-heading {
+    top:20px
+  }
+
+  .intro-heading .brand-mark {
+    margin-bottom:8px;
+    width:29px;
+    height:29px
+  }
+
+  .envelope-stage {
+    height:440px;
+    margin-top:40px
+  }
+
+  .envelope {
+    --letter-height:280px;
+    bottom:13%
+  }
+
+  .letter-ornament {
+    width:27px;
+    height:27px;
+    margin-bottom:6px
+  }
+
+  .letter-eyebrow {
+    margin-bottom:8px
+  }
+
+  .fine-rule {
+    margin:9px 0
+  }
+
+  .letter-star {
+    margin-top:9px
+  }
+
+  .intro-actions {
+    bottom:48px
+  }
+
+  .intro.ready .intro-actions {
+    bottom:32px
+  }
+
+  .intro-date {
+    bottom:12px
+  }
+
+}
+
+/* Небольшое зерно бумаги — без тяжёлых фильтров и дополнительных картинок. */
+.envelope-back::after,.envelope-side::after,.flap-outside::before,.flap-inside::before,.letter::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.17;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply
+}
+
+.envelope-front {
+  background:linear-gradient(135deg,#f0e4ce,#e4d3b4 65%,#d5bc96);
+}
+
+.letter-frame {
+  position:relative;
+  z-index:1
+}
+
+.intro-heading .eyebrow {
+  font-size:12px;
+  letter-spacing:.15em
+}
+
+.intro-actions>p {
+  font-size:12px;
+  letter-spacing:.08em
+}
+
+.intro-actions .button {
+  font-size:12px
+}
+
+.letter-eyebrow {
+  font-size:12px;
+  letter-spacing:.1em;
+  margin-bottom:8px
+}
+
+.letter-subtitle {
+  font-size:12px;
+  letter-spacing:.06em
+}
+
+.letter-ornament {
+  width:32px;
+  height:32px;
+  margin-bottom:8px
+}
+
+.fine-rule {
+  margin:11px 0
+}
+
+.letter-star {
+  margin-top:10px
+}
+
+.letter-frame {
+  padding:10px 9px
+}
+
+@media(max-height:700px) and (max-width:759px) {
+  .letter-eyebrow,.letter-subtitle {
+    font-size:11px
+  }
+
+  .intro-heading .eyebrow {
+    font-size:11px
+  }
+
+}
